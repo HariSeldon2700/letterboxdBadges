@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "Letterboxd Badges",
+  "version": "2.8.3.72",
+  "description": "Books, Remakes/Related, and Country (with emoji flag + tooltip). Inline on film pages and overlay on posters.",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://letterboxd.com/*",
+    "https://query.wikidata.org/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "*://letterboxd.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}

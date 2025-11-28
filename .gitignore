@@ -1,0 +1,11 @@
+# Node dependencies (if you ever add build tools)
+node_modules/
+npm-debug.log*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor settings
+.vscode/
+.idea/
