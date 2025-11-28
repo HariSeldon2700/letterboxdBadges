@@ -6,4 +6,4 @@ A Chrome extension that adds:
 - Toggle UI to show/hide categories
 
 Version: 0.1  
-Author: Paul Baran  
+Author: Paul Baran
