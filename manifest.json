@@ -1,11 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Letterboxd Badges",
-  "version": "2.8.3.72",
-  "description": "Books, Remakes/Related, and Country (with emoji flag + tooltip). Inline on film pages and overlay on posters.",
+  "description": "Adds badges to Letterboxd: book origin, remakes/related films, and country (with emoji flag and tooltip), plus inline chips on film pages.",
+  "version": "0.1.0",
   "author": "Paul Baran",
   "homepage_url": "https://github.com/HariSeldon2700/letterboxdBadges",
-  "update_url": "https://clients2.google.com/service/update2/crx",
 
   "icons": {
     "16": "icons/icon16.png",
@@ -14,18 +13,6 @@
     "128": "icons/icon128.png"
   },
 
-  "action": {
-    "default_title": "Letterboxd Badges",
-    "default_popup": "popup.html"
-  },
-
-  "content_scripts": [
-    {
-      "matches": ["*://letterboxd.com/*"],
-      "js": ["content.js"]
-    }
-  ],
-
   "permissions": [
     "storage"
   ],
@@ -33,6 +20,7 @@
     "https://letterboxd.com/*",
     "https://query.wikidata.org/*"
   ],
+
   "content_scripts": [
     {
       "matches": [
