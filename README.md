@@ -30,6 +30,14 @@ Displays a flag + country name, linking to Letterboxd’s country page.
 Shows **“Earlier related”** / **“Later related”** badges when a film has  
 remakes, originals, related adaptations, or lineage connections.
 
+This feature is a bit experimental, since the data comes from **Wikidata** —  
+but that’s also its beauty. It can surface relationships you would *never*  
+notice on Letterboxd itself.
+
+For example: I had no idea Buster Keaton’s **_Three Ages_** mirrors the  
+structural idea of D.W. Griffith’s **_Intolerance_** — three intercut  
+storylines riffing on Griffith’s multi-era construction.
+
 ### 🧩 Where badges appear
 
 - On posters (lists, watchlists, search, profiles, activity, etc.)  
@@ -115,7 +123,7 @@ https://github.com/HariSeldon2700/letterboxdBadges
 
 ## 🧑‍🎨 Credits
 
-Built by **Barantino** + a lot of AI help (pls be gentle, I'm a mere VFX Artist by profession 🙂).  
+Built by **HariSeldon2700** + a lot of AI help (pls be gentle, I'm a mere VFX Artist by profession 🙂).  
 Data from **Wikidata** + **Letterboxd**.  
 Inspired by a desire to see more film context at a glance.
 
