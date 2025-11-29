@@ -93,7 +93,7 @@ All settings persist automatically.
 
 ---
 
-## 🛠 How it works (for the curious)
+## 🛠 How it works
 
 1. Detects all film poster links on the page  
 2. Extracts the film slug (e.g., `/film/glass-onion/`)  
