@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Letterboxd Badges",
   "description": "Adds badges to Letterboxd: book origin, remakes/related films, and country (with emoji flag and tooltip), plus inline chips on film pages.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Paul Baran",
   "homepage_url": "https://github.com/HariSeldon2700/letterboxdBadges",
 
