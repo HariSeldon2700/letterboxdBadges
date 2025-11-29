@@ -43,14 +43,33 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 3) Save when user changes any toggle
-  function saveSettings() {
-    chrome.storage.local.set({
-      [STORAGE_ENABLED]: enabledCheckbox.checked,
-      [STORAGE_SHOW_BOOK]: bookCheckbox.checked,
-      [STORAGE_SHOW_REMAKE]: remakeCheckbox.checked,
-      [STORAGE_SHOW_COUNTRY]: countryCheckbox.checked,
+function saveSettings() {
+  chrome.storage.local.set({
+    [STORAGE_ENABLED]: enabledCheckbox.checked,
+    [STORAGE_SHOW_BOOK]: bookCheckbox.checked,
+    [STORAGE_SHOW_REMAKE]: remakeCheckbox.checked,
+    [STORAGE_SHOW_COUNTRY]: countryCheckbox.checked,
+  }, () => {
+    // After settings are saved, reload the active Letterboxd tab (if any)
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (chrome.runtime.lastError) {
+        console.warn("[LBXD popup] tabs.query error:", chrome.runtime.lastError);
+        return;
+      }
+
+      const tab = tabs[0];
+      if (!tab || !tab.id || !tab.url) return;
+
+      if (tab.url.startsWith("https://letterboxd.com/")) {
+        chrome.tabs.reload(tab.id, () => {
+          if (chrome.runtime.lastError) {
+            console.warn("[LBXD popup] tabs.reload error:", chrome.runtime.lastError);
+          }
+        });
+      }
     });
-  }
+  });
+}
 
   enabledCheckbox.addEventListener("change", saveSettings);
   bookCheckbox.addEventListener("change", saveSettings);
