@@ -18,10 +18,9 @@
   "default_popup": "popup.html"
 },
 
-  "permissions": [
-    "storage"
-  ],
-  "host_permissions": [
+"permissions": ["storage", "tabs"],
+
+"host_permissions": [
     "https://letterboxd.com/*",
     "https://query.wikidata.org/*"
   ],

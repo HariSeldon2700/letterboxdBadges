@@ -1,6 +1,5 @@
-// Letterboxd Badges v2.8.4.1 — emoji flags + tooltip + Letterboxd country link
+// Letterboxd Badges v0.2 — emoji flags + tooltip + Letterboxd country link
 // -----------------------------------------------------------------------------
-// COLOR GUIDE – tweak these only, everything else will follow.
 //
 // 1) POSTER BADGES (overlay over the poster image)
 //    - COLOR_POSTER_BADGE_BG      → default grey box behind text
@@ -167,7 +166,7 @@
 
       .${INLINE_WRAP} {
         display: flex;
-        gap: 8px;
+        gap: 0px;
         align-items: center;
         margin-top: 8px;
         flex-wrap: wrap;
@@ -249,6 +248,9 @@
     document.head.appendChild(style);
   }
 
+
+
+
   // --- STORAGE HELPERS -------------------------------------------------------
 const getLocal = (keys)=> new Promise(res=> chrome.storage.local.get(keys, r=> res(r||{})));
 const setLocal = (obj)=> new Promise(res=> chrome.storage.local.set(obj, ()=> res()));
@@ -285,41 +287,86 @@ async function getSettings() {
   };
 }
   // --- TOGGLE UI -------------------------------------------------------------
-  async function ensureToggleUI(){
-    if (document.getElementById("lbxd-toggle")) return;
-    const box = document.createElement("div");
-    box.id = "lbxd-toggle";
+ async function ensureToggleUI() {
+  // Don't build twice
+  if (document.getElementById("lbxd-toggle")) return;
 
+  // Read popup preferences: these decide which rows exist at all
+  const [allowBook, allowRemake, allowCountry] = await Promise.all([
+    getShowBook(),
+    getShowRemake(),
+    getShowCountry(),
+  ]);
+
+  const box = document.createElement("div");
+  box.id = "lbxd-toggle";
+
+  // --- BOOK ROW ------------------------------------------------------------
+  if (allowBook) {
     const labB = document.createElement("label");
+    labB.dataset.lbxdToggle = "book";
+
     const cbB = document.createElement("input");
-    cbB.type="checkbox";
-    cbB.checked = await getShowBook();
+    cbB.type = "checkbox";
+    cbB.checked = allowBook; // current state from storage
+
     labB.appendChild(cbB);
     labB.appendChild(document.createTextNode(" 📖 Books"));
+    box.appendChild(labB);
 
+    cbB.addEventListener("change", async () => {
+      await setShowBook(cbB.checked);
+      clearAllStacks();
+      rescan(true);
+    });
+  }
+
+  // --- REMAKE ROW ----------------------------------------------------------
+  if (allowRemake) {
     const labR = document.createElement("label");
+    labR.dataset.lbxdToggle = "remake";
+
     const cbR = document.createElement("input");
-    cbR.type="checkbox";
-    cbR.checked = await getShowRemake();
+    cbR.type = "checkbox";
+    cbR.checked = allowRemake;
+
     labR.appendChild(cbR);
     labR.appendChild(document.createTextNode(" ♻️ Remakes/Related"));
+    box.appendChild(labR);
 
+    cbR.addEventListener("change", async () => {
+      await setShowRemake(cbR.checked);
+      clearAllStacks();
+      rescan(true);
+    });
+  }
+
+  // --- COUNTRY ROW ---------------------------------------------------------
+  if (allowCountry) {
     const labC = document.createElement("label");
+    labC.dataset.lbxdToggle = "country";
+
     const cbC = document.createElement("input");
-    cbC.type="checkbox";
-    cbC.checked = await getShowCountry();
+    cbC.type = "checkbox";
+    cbC.checked = allowCountry;
+
     labC.appendChild(cbC);
     labC.appendChild(document.createTextNode(" 🌍 Country"));
-
-    box.appendChild(labB);
-    box.appendChild(labR);
     box.appendChild(labC);
-    document.body.appendChild(box);
 
-    cbB.addEventListener("change", async ()=>{ await setShowBook(cbB.checked);   clearAllStacks(); rescan(true); });
-    cbR.addEventListener("change", async ()=>{ await setShowRemake(cbR.checked); clearAllStacks(); rescan(true); });
-    cbC.addEventListener("change", async ()=>{ await setShowCountry(cbC.checked); clearAllStacks(); rescan(true); });
+    cbC.addEventListener("change", async () => {
+      await setShowCountry(cbC.checked);
+      clearAllStacks();
+      rescan(true);
+    });
   }
+
+  // If all three are disabled in the popup, box would be empty – in that
+  // case we simply don't add it.
+  if (box.children.length > 0) {
+    document.body.appendChild(box);
+  }
+}
 
   // --- COUNTRY URL HELPERS ---------------------------------------------------
   const COUNTRY_OVERRIDES = {
@@ -581,11 +628,11 @@ async function getSettings() {
     if (await getShowRemake()){
       if (data.olderList?.length){
         const bestOlder = await pickPopular(data.olderList);
-        if (bestOlder) inlineChip(bar, "line", "♻️", "Has Original", bestOlder.href, bestOlder.label ? "Original: " + bestOlder.label : "Original");
+        if (bestOlder) inlineChip(bar, "line", "♻️", "Earlier related", bestOlder.href, bestOlder.label ? "Earlier related: " + bestOlder.label : "Earlier related");
       }
       if (data.youngerList?.length){
         const bestYoung = await pickPopular(data.youngerList);
-        if (bestYoung) inlineChip(bar, "line", "♻️", "Has Remake", bestYoung.href, bestYoung.label ? "Remake: " + bestYoung.label : "Remake");
+        if (bestYoung) inlineChip(bar, "line", "♻️", "Later related", bestYoung.href, bestYoung.label ? "Later related: " + bestYoung.label : "Later related");
       }
     }
   }
@@ -956,11 +1003,11 @@ LIMIT 1`;
     if (await getShowRemake()){
       if (data.olderList?.length){
         const bestOlder = await pickPopular(data.olderList);
-        if (bestOlder) upsertLineBadge(wrapper, "older", "Has Original", bestOlder.href, bestOlder.label ? "Original: " + bestOlder.label : "Original", mode);
+        if (bestOlder) upsertLineBadge(wrapper, "older", "Earlier related", bestOlder.href, bestOlder.label ? "Earlier related: " + bestOlder.label : "Earlier related", mode);
       }
       if (data.youngerList?.length){
         const bestYoung = await pickPopular(data.youngerList);
-        if (bestYoung) upsertLineBadge(wrapper, "younger", "Has Remake", bestYoung.href, bestYoung.label ? "Remake: " + bestYoung.label : "Remake", mode);
+        if (bestYoung) upsertLineBadge(wrapper, "younger", "Later related", bestYoung.href, bestYoung.label ? "Later related: " + bestYoung.label : "Later related", mode);
       }
     }
   }
@@ -997,6 +1044,9 @@ LIMIT 1`;
     mo.observe(document.documentElement, { childList:true, subtree:true });
   }
 
+
+
+  
 // --- INIT --------------------------------------------------------------
 async function init() {
   const showUi = await getEnabled(); // same storage key, different meaning now
