@@ -39,6 +39,7 @@
   const BADGE_STACK   = "lbxd-badge-stack";
   const INLINE_WRAP   = "lbxd-inline";
 
+  const STORAGE_ENABLED      = "lbxd_enabled";
   const STORAGE_SHOW_BOOK    = "lbxd_showBook";
   const STORAGE_SHOW_REMAKE  = "lbxd_showRemake";
   const STORAGE_SHOW_COUNTRY = "lbxd_showCountry";
@@ -249,8 +250,8 @@
   }
 
   // --- STORAGE HELPERS -------------------------------------------------------
-  const getLocal = (keys)=> new Promise(res=> chrome.storage.local.get(keys, r=> res(r||{})));
-  const setLocal = (obj)=> new Promise(res=> chrome.storage.local.set(obj, ()=> res()));
+const getLocal = (keys)=> new Promise(res=> chrome.storage.local.get(keys, r=> res(r||{})));
+const setLocal = (obj)=> new Promise(res=> chrome.storage.local.set(obj, ()=> res()));
 
   async function getShowBook(){ const r = await getLocal([STORAGE_SHOW_BOOK]);   return r[STORAGE_SHOW_BOOK]   !== false; }
   async function setShowBook(v){ await setLocal({[STORAGE_SHOW_BOOK]:   !!v}); }
@@ -259,6 +260,30 @@
   async function getShowCountry(){ const r = await getLocal([STORAGE_SHOW_COUNTRY]);return r[STORAGE_SHOW_COUNTRY]!== false; }
   async function setShowCountry(v){ await setLocal({[STORAGE_SHOW_COUNTRY]:!!v}); }
 
+  //MASTERFLAG
+  async function getEnabled(){
+  const r = await getLocal([STORAGE_ENABLED]);
+  // default: true if key not set
+  return r[STORAGE_ENABLED] !== false;
+}
+
+// Read all settings at once
+async function getSettings() {
+  const defaults = {
+    [STORAGE_ENABLED]: true,
+    [STORAGE_SHOW_BOOK]: true,
+    [STORAGE_SHOW_REMAKE]: true,
+    [STORAGE_SHOW_COUNTRY]: true,
+  };
+
+  const stored = await getLocal(Object.keys(defaults));
+  return {
+    enabled: stored[STORAGE_ENABLED] !== false,      // default true
+    showBook: stored[STORAGE_SHOW_BOOK] !== false,   // default true
+    showRemake: stored[STORAGE_SHOW_REMAKE] !== false,
+    showCountry: stored[STORAGE_SHOW_COUNTRY] !== false,
+  };
+}
   // --- TOGGLE UI -------------------------------------------------------------
   async function ensureToggleUI(){
     if (document.getElementById("lbxd-toggle")) return;
@@ -972,8 +997,27 @@ LIMIT 1`;
     mo.observe(document.documentElement, { childList:true, subtree:true });
   }
 
-  // --- INIT ------------------------------------------------------------------
-  async function init(){ injectStyles(); await ensureToggleUI(); rescan(false); setupObserver(); }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init);
-  else init();
+// --- INIT --------------------------------------------------------------
+async function init() {
+  const showUi = await getEnabled(); // same storage key, different meaning now
+
+  injectStyles();
+
+  // Only control the corner UI box with this toggle
+  if (showUi) {
+    await ensureToggleUI();
+  } else {
+    console.log("[LBXD] popup setting: hide in-page toggle UI (badges still active).");
+  }
+
+  // Badges + observers always run, regardless of UI visibility
+  rescan(false);
+  setupObserver();
+}
+
+if (document.readyState === "loading")
+  document.addEventListener("DOMContentLoaded", init);
+else
+  init();
+
 })();
