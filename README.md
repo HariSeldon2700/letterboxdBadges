@@ -142,3 +142,7 @@ Feel free to fork, improve, remix, or build on it.
 
 If you enjoy the extension, you can support it here:  
 👉 https://buymeacoffee.com/barantino6t
+
+And please feel free to help improve it in any way —  
+**contributions, ideas, bug reports, and pull requests are all very welcome.**  
+This project is meant to stay fully open-source and community-driven.
