@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Letterboxd Badges",
-  "description": "Adds badges to Letterboxd: book origin, remakes/related films, and country (with emoji flag and tooltip), plus inline chips on film pages.",
-  "version": "0.2.0",
+  "description": "Adds book, remake and country badges to Letterboxd posters. Shows film lineage and helpful origin overlays as you browse.",
+  "version": "0.2.1",
   "author": "Paul Baran",
   "homepage_url": "https://github.com/HariSeldon2700/letterboxdBadges",
 
@@ -18,7 +18,7 @@
   "default_popup": "popup.html"
 },
 
-"permissions": ["storage", "tabs"],
+"permissions": ["storage"],
 
 "host_permissions": [
     "https://letterboxd.com/*",
