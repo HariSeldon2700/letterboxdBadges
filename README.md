@@ -64,7 +64,7 @@ Letterboxd doesn’t tell you at a glance:
 ![Main](https://github.com/user-attachments/assets/2e5801ed-5559-4f2d-acb8-f7aa894c220f)
 ![FilmPage](https://github.com/user-attachments/assets/9e394722-1da2-4fb5-af0f-76046d8bab7f)
 ![SMALL_POSTERS](https://github.com/user-attachments/assets/1b216104-0da7-4cea-b1c4-cb7926c0435f)
-![LetterboxdBadges11](https://github.com/user-attachments/assets/4a95d087-0eec-4127-a6d2-a8d2aa29988a)
+
 
 
 ## ⚙️ Features
