@@ -9,7 +9,7 @@ Know whether a movie is based on a book, where it comes from, or how it fits int
 ## ⭐ Install
 
 **Chrome Web Store:**  
-[Install on Chrome Web Store](https://chrome.google.com/webstore/detail/hinnhmehlkepphacnjmnfbkjmihiigcm](https://chromewebstore.google.com/detail/letterboxd-badges/hinnhmehlkepphacnjmnfbkjimhiigcm?authuser=0&hl=en)
+[Install on Chrome Web Store](https://chromewebstore.google.com/detail/letterboxd-badges/hinnhmehlkepphacnjmnfbkjimhiigcm?authuser=0&hl=en)
 
 ---
 
