@@ -48,13 +48,13 @@ storylines riffing on Griffith’s multi-era construction.
 
 ## 🧩 Why this is useful
 
-Letterboxd doesn’t tell you:
+Letterboxd doesn’t tell you at a glance:
 
 - That *The Thing* is based on a novella  
 - That *Stalker* is adapted from a novel  
 - That *Rififi*, *Solaris*, or *Nosferatu* have earlier versions  
 - That *Intolerance* has later related films  
-- What country a film comes from at a glance  
+- What country a film comes
 
 **This extension gives you immediate insight — without opening new tabs or searching.**
 
