@@ -2,7 +2,7 @@
 **Book • Country • Related-Film badges directly on Letterboxd**
 
 Instant context for every film.  
-Know whether a movie is based on a book, where it comes from, or how it fits into a lineage — all without leaving Letterboxd.
+Know whether a movie is based on a book, where it comes from, or how it fits into a lineage — immediately.
 
 ---
 
