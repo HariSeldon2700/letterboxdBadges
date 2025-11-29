@@ -8,8 +8,8 @@ Know whether a movie is based on a book, where it comes from, or how it fits int
 
 ## ⭐ Install
 
-👉 **Chrome Web Store:**  
-*(WIP — link will appear when published)*
+**Chrome Web Store:**  
+www.placeholder.com
 
 ---
 
@@ -53,14 +53,10 @@ Letterboxd doesn’t tell you:
 ---
 
 ## 🖼 Screenshots
+![Main](https://github.com/user-attachments/assets/2e5801ed-5559-4f2d-acb8-f7aa894c220f)
+![FilmPage](https://github.com/user-attachments/assets/9e394722-1da2-4fb5-af0f-76046d8bab7f)
+![SMALL_POSTERS](https://github.com/user-attachments/assets/1b216104-0da7-4cea-b1c4-cb7926c0435f)
 
-*(Add your images here)*
-
-- Poster overlays  
-- Film page chips  
-- Toggle UI (optional)  
-
----
 
 ## ⚙️ Features
 
